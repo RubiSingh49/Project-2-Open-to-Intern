@@ -36,7 +36,7 @@ const createCollege = async function (req, res) {
 
         let college = await CollegeModel.create(data)
 
-        res.status(200).send({ status: true, data: college })
+        res.status(201).send({ status: true, data: college })
 
 
     } catch (error) {
@@ -68,7 +68,7 @@ const getCollegeDetails = async function (req, res) {
         }
         if (Object.keys(interns).length != 0) {
             internDetails.interns = interns
-            return res.status(200).send({ status: true, data: internDetails })
+            return res.status(201).send({ status: true, data: internDetails })
         }
         else {
             internDetails.interns = " No Intern Applied To This College"
