@@ -46,7 +46,7 @@ const createCollege = async function (req, res) {
 }
 
 
-const collegeDetails = async function (req, res) {
+const getCollegeDetails = async function (req, res) {
     try {
         let collegeName = req.query.collegeName
 
@@ -81,4 +81,4 @@ const collegeDetails = async function (req, res) {
 }
 
 module.exports.createCollege = createCollege
-module.exports.collegeDetails = collegeDetails
+module.exports.getCollegeDetails = getCollegeDetails

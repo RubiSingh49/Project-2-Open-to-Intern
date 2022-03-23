@@ -1,7 +1,7 @@
 const InternModel = require('../models/internModel')
 const CollegeModel = require('../models/collegeModel')
 const mongoose = require("mongoose")
-const ObjectId = mongoose.Types.ObjectId
+// const ObjectId = mongoose.Types.ObjectId
 
 
 const isValid = function (value) {
@@ -14,6 +14,7 @@ const isValidObjectId = function (objectId) {
     return mongoose.Types.ObjectId.isValid(objectId)
 }
 
+
 const createIntern = async function (req, res) {
     try {
         let data = req.body
@@ -24,6 +25,7 @@ const createIntern = async function (req, res) {
             res.status(400).send({ status: false, msg: "BAD REQUEST" })
             return
         }
+
         if (!isValid(name)) {
             res.status(400).send({ status: false, msg: "name is required" })
             return
