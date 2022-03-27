@@ -48,12 +48,13 @@ const createCollege = async function (req, res) {
 
 const getCollegeDetails = async function (req, res) {
     try {
+        res.setHeader("Access-Control-Allow-Origin", "*")
         let collegeName = req.query.collegeName
 
         if (!collegeName) {
             return res.status(400).send({ status: false, msg: "collegeName is required " })
         }
-        let collegeData = await CollegeModel.findOne({ name: collegeName })
+        let collegeData = await CollegeModel.findOne({ name: collegeName, isDeleted: false })
 
         if (!collegeData) {
             return res.status(404).send({ status: false, msg: "collegeData doesn't exist with this collegeName" })

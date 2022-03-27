@@ -1,6 +1,7 @@
 const InternModel = require('../models/internModel')
 const CollegeModel = require('../models/collegeModel')
 const mongoose = require("mongoose")
+const internModel = require('../models/internModel')
 // const ObjectId = mongoose.Types.ObjectId
 
 
@@ -17,9 +18,10 @@ const isValidObjectId = function (objectId) {
 
 const createIntern = async function (req, res) {
     try {
+        res.setHeader("Access-Control-Allow-Origin", "*")
         let data = req.body
 
-        let { name, email, mobile, collegeId } = data
+        let { name, email, mobile, collegeId, collegeName} = data
 
         if (Object.keys(data).length == 0) {
             res.status(400).send({ status: false, msg: "Please provide Data" })
@@ -66,12 +68,13 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, msg: "mobile is already used, please provide another mobile number" })
         }
 
-        let collegeDetails = await CollegeModel.findById(collegeId)
+        let collegeDetails = await CollegeModel.findOne({name: collegeName})
         if (!collegeDetails) {
-            return res.status(404).send({ status: false, msg: "collgeId doesn't exist" })
+            return res.status(404).send({ status: false, msg: "collgename doesn't exist" })
         }
         else {
-            let internCreated = await InternModel.create(data)
+            let internToBeCreated = {name, email, mobile, collegeId: collegeDetails._id}
+            let  internCreated = await internModel.create(internToBeCreated)
             res.status(201).send({ status: true, data: internCreated })
         }
 
